@@ -1,20 +1,18 @@
 <?php
-function connectToDatabase() {
-    $serverName = "eesdb.database.windows.net";
-    $connectionOptions = array(
-        "Database" => "ees_db",
-        "Uid" => "ryaned15",
-        "PWD" => "Titleist5"
-    );
+$serverName = "eesdb.database.windows.net"; // Replace with your server name
+$databaseName = "ees_db"; // Replace with your database name
+$username = "ryaned15"; // Replace with your username
+$password = "Titleist5"; // Replace with your password
 
-    $conn = sqlsrv_connect($serverName, $connectionOptions);
-    if ($conn === false) {
-        die(print_r(sqlsrv_errors(), true));
-    } else {
-        return $conn;
-    }
+$connectionOptions = array(
+    "Database" => $databaseName,
+    "Uid" => $username,
+    "PWD" => $password
+);
+
+$conn = sqlsrv_connect($serverName, $connectionOptions);
+
+if ($conn === false) {
+    die(print_r(sqlsrv_errors(), true));
 }
-
-// To use the connection:
-$connection = connectToDatabase();
 ?>
