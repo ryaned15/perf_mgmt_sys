@@ -1,29 +1,17 @@
-<?php
+<!DOCTYPE html>
+<html lang="en">
+<?php 
 session_start();
+include('./db_connect.php');
+  ob_start();
+  // if(!isset($_SESSION['system'])){
 
-function connectToDatabase() {
-    $serverName = "eesdb.database.windows.net";
-    $connectionOptions = array(
-        "Database" => "ees_db",
-        "Uid" => "ryaned15",
-        "PWD" => "Titleist5"
-    );
-
-    $conn = sqlsrv_connect($serverName, $connectionOptions);
-    if ($conn === false) {
-        die(print_r(sqlsrv_errors(), true));
-    } else {
-        return $conn;
+    $system = $conn->query("SELECT * FROM system_settings")->fetch_array();
+    foreach($system as $k => $v){
+      $_SESSION['system'][$k] = $v;
     }
-}
-
-// To use the connection:
-$connection = connectToDatabase();
-
-ob_start();
-// Rest of your code for fetching system settings and storing in $_SESSION['system']
-// Ensure $connection is a valid database connection and handle errors appropriately
-ob_end_flush();
+  // }
+  ob_end_flush();
 ?>
 <?php 
 if(isset($_SESSION['login_id']))
