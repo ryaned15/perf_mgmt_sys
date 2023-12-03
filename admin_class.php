@@ -606,5 +606,3 @@ class Action {
 		}
 		return json_encode($data);
 	}
-
-}
