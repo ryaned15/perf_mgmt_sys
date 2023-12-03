@@ -1,19 +1,50 @@
+
+There's a problem with the structure of the code you've shared. The construction and destruction of the database connection within a class aren't properly organized. Here's a revised and properly structured version of your code:
+
+php
+Copy code
 <?php
 session_start();
 ini_set('display_errors', 1);
-Class Action {
-	private $db;
 
-	public function __construct() {
-		ob_start();
-   	include 'db_connect.php';
-    
-    $this->db = $conn;
-	}
-	function __destruct() {
-	    $this->db->close();
-	    ob_end_flush();
-	}
+class Action {
+    private $db;
+
+    public function __construct() {
+        $this->connectToDatabase();
+        ob_start();
+    }
+
+    private function connectToDatabase() {
+        $serverName = "eesdb.database.windows.net";
+        $connectionOptions = array(
+            "Database" => "ees_db",
+            "Uid" => "ryaned15",
+            "PWD" => "Titleist5"
+        );
+
+        $conn = sqlsrv_connect($serverName, $connectionOptions);
+        if ($conn === false) {
+            die(print_r(sqlsrv_errors(), true));
+        } else {
+            $this->db = $conn;
+        }
+    }
+
+    public function fetchData() {
+        $system = $this->db->query("SELECT * FROM system_settings")->fetch_array();
+        if ($system) {
+            foreach ($system as $k => $v) {
+                $_SESSION['system'][$k] = $v;
+            }
+        }
+    }
+
+    public function __destruct() {
+        sqlsrv_close($this->db);
+        ob_end_flush();
+    }
+}
 #login function...
 	function login(){
 		extract($_POST);
