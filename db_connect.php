@@ -1,11 +1,7 @@
 <?php
-$serverName = "eesdb.database.windows.net";
-$connectionOptions = array(
-    "Database" => "ees_db",
-    "Uid" => "ryaned15",
-    "PWD" => "Titleist5"
-);
+$servername = "eesdb.database.windows.net"; // hostname
+$username = "ryaned15"; // MySQL username
+$password = "Titleist5"; // MySQL password
+$dbname = "ees_db"; // MySQL database name (optional)
 
-$conn = sqlsrv_connect($serverName, $connectionOptions);
-
-
+$conn= new mysqli($servername, $username, $password, $dbname)or die("Could not connect to mysql".mysqli_error($con));
