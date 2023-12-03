@@ -10,8 +10,7 @@ $conn = sqlsrv_connect($serverName, $connectionOptions);
 if ($conn === false) {
     die(print_r(sqlsrv_errors(), true));
 } else {
-    // Connection successful
-    // Perform your SQLSRV queries here using $conn
+   return $conn; 
 }
 ?>
 
