@@ -1,6 +1,5 @@
 <?php
 
-<?php
 // PHP Data Objects(PDO) Sample Code:
 try {
     $conn = new PDO("sqlsrv:server = tcp:eesdb.database.windows.net,1433; Database = ees_db", "ryaned15", "Titleist5");
