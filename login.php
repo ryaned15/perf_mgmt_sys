@@ -7,7 +7,7 @@ ob_start();
 
 // Ensure the connection is successful before executing the query
 if ($conn) {
-    $result = $conn->query("SELECT * FROM system_settings");
+    $result = sqlsrv_query($conn, "SELECT * FROM system_settings");
     
     if ($result) {
         while ($row = $result->fetch_assoc()) {
