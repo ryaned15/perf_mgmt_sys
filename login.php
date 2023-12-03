@@ -3,29 +3,15 @@
 <?php 
 session_start();
 include('./db_connect.php');
-ob_start();
+  ob_start();
+  // if(!isset($_SESSION['system'])){
 
-// Ensure the connection is successful before executing the query
-if ($conn) {
-    $result = sqlsrv_query($conn, "SELECT * FROM system_settings");
-    
-    if ($result) {
-        while ($row = $result->fetch_assoc()) {
-            foreach ($row as $k => $v) {
-                $_SESSION['system'][$k] = $v;
-            }
-        }
-    } else {
-        // Handle the query execution failure
-        // For example:
-        die("Query execution failed: " . $conn->error);
+    $system = sqlsrv_query($conn, "SELECT * FROM system_settings")->fetch_array();
+    foreach($system as $k => $v){
+      $_SESSION['system'][$k] = $v;
     }
-} else {
-    // Handle connection failure
-    die("Connection failed: " . $conn->connect_error);
-}
-
-ob_end_flush();
+  // }
+  ob_end_flush();
 ?>
 <?php 
 if(isset($_SESSION['login_id']))
